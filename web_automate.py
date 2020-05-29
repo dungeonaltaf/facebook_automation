@@ -10,7 +10,8 @@ import requests
 from bs4 import BeautifulSoup
 from selenium.common.exceptions import NoSuchElementException
 import logging
-#logging.basicConfig(filename='web_automate.log',level=logging.DEBUG,format='%(asctime)s %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+import sys 
+logging.basicConfig(filename='web_automate.log',level=logging.DEBUG,format='%(asctime)s %(levelname)s: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 def connect(host='http://google.com'):
 	try:
@@ -32,7 +33,7 @@ def scrap_website():
 def set_driver_options():
 	option = Options()
 	option.add_argument("--disable-infobars")
-	#option.add_argument('headless')
+	option.add_argument('headless')
 	option.add_argument('window-size=1200x600')
 	option.add_argument("start-maximized")
 	option.add_argument("--disable-extensions")
@@ -47,8 +48,8 @@ def status_update(quote):
 	driver.maximize_window()
 	url = 'https://www.facebook.com/'
 	driver.get(url)
-	email_address = ''
-	password = ''
+	email_address = sys.argv[1]
+	password = sys.argv[2]
 	
 	email_input = driver.find_element_by_xpath('//*[@id="email"]')
 	email_input.send_keys(email_address)
